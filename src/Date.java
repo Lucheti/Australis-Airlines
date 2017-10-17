@@ -2,18 +2,34 @@ import java.util.Calendar;
 
 
 public class Date {
-    int year = Calendar.YEAR;
-    int month = Calendar.MONTH;
-    int week = Calendar.WEEK_OF_YEAR;
-    int day = Calendar.DAY_OF_WEEK;
-    int hour = Calendar.HOUR_OF_DAY;
-    int minute = Calendar.MINUTE;
+    int day;
+    int month;
+    int hour;
+    int minute;
 
-    String getDate (){
-        return day + "/" + month + "/" +year;
+    public Date() {
+        this.day = Calendar.DAY_OF_WEEK;
+        this.month = Calendar.MONTH;
     }
-    String getTime (){
-        return hour + ":" + minute;
+    public Date(int day, int month) {
+        this.day = day;
+        this.month = month;
     }
-    int getWeek () { return week;}
+    public Date(int day, int month , int hour , int minute) {
+        this.day = day;
+        this.month = month;
+        this.hour = hour;
+        this.minute = minute;
+    }
+
+
+//    **si implementamos las horas vamos a tener q activar este constructor**
+//    public Date(int day, int month, int hour, int minute) {
+//        this.day = day;
+//        this.month = month;
+//    }
+
+    public String toString (){
+        return day + "/" + month ;
+    }
 }

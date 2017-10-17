@@ -1,27 +1,51 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by lucasgarcia on 11/10/17.
  */
 public class Plane {
 
-    HashMap<String,Seat> seats = new HashMap<String, Seat>();
+    ArrayList<Seat> seats = new ArrayList<>();
     String planeCode;
     int turistClassPrice;
     int buisnessClassPrice;
 
 
-    public void Plane(int rows, int peoplePerRow, int buisnessRows) {
+    public Plane(int rows, int peoplePerRow, int buisnessRows) {
         for (int i = 1; i <= rows ; i++) {
-            for (Integer j = 1; j <= peoplePerRow; j++) {
+            for (int j = 0; j < peoplePerRow; j++) {
                 if (i <= buisnessRows) {
-                    seats.put(i + j.toString(), new Seat(buisnessClassPrice));
+                    seats.add(new Seat(buisnessClassPrice,"" + i + (char)(j+97)));
                 }else {
-                    seats.put(i + j.toString() , new Seat(turistClassPrice));
+                    seats.add(new Seat(turistClassPrice,"" + i + (char)(j+97)));
                 }
             }
         }
     }
 
 
+    public Seat[] reserveSeat(int cantidadDePersonas , Passenger passenger) {
+        Seat[] returnSeats = new Seat[cantidadDePersonas];
+        int counter = 0;
+        return reserveSeat(cantidadDePersonas,counter,passenger, returnSeats);
+    }
+    private Seat[] reserveSeat(int cantidadDepersonas, int counter , Passenger passenger, Seat[] returnSeats){
+        if (counter < cantidadDepersonas)
+        for (Seat seat: seats){
+            if (seat.isFree()){
+                seat.reseveSeat(passenger);
+                returnSeats[counter] = seat;
+                counter++;
+                return reserveSeat(cantidadDepersonas,counter,passenger,returnSeats);
+            }
+        }
+        return returnSeats;
+    }
+    void print(){
+        for (Seat seat: seats){
+            System.out.println(seat.position);
+        }
+    }
 }
