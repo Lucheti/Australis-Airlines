@@ -6,13 +6,13 @@ public class Flight {
     private Plane plane;
     private Airport from;
     private Airport to;
-    private Date day;
+    private Date takeOff;
 
     public Flight(Plane plane, Airport from, Airport to, Date day) {
         this.plane = plane;
         this.from = from;
         this.to = to;
-        this.day = day;
+        this.takeOff = day;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Flight {
 
         if (getFrom() != null ? !getFrom().equals(flight.getFrom()) : flight.getFrom() != null) return false;
         if (getTo() != null ? !getTo().equals(flight.getTo()) : flight.getTo() != null) return false;
-        return getDay() != null ? getDay().equals(flight.getDay()) : flight.getDay() == null;
+        return getTakeOff() != null ? getTakeOff().equals(flight.getTakeOff()) : flight.getTakeOff() == null;
     }
 
     public Plane getPlane() {
@@ -39,12 +39,12 @@ public class Flight {
         return to;
     }
 
-    public Date getDay() {
-        return day;
+    public Date getTakeOff() {
+        return takeOff;
     }
 
-    public String toString (){
-        return "Flight from " + from + " to " + to + " the " + getDay();
-    }
+//    public String toString (){
+//        return "Flight from " + from + " to " + to + " the " + getTakeOff();
+//    }
 
 }

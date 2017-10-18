@@ -45,10 +45,20 @@ public class Api {
         }
         return searchResult;
     }
+
+    ArrayList<Flight> sortByFrom (ArrayList<Flight> list, Airport from){
+        for (Flight flight: flights){
+            if (flight.getFrom().equals(from)){
+                list.remove(flight);
+            }
+        }
+        return list;
+    }
+
     Ticket reserveSeat (Flight flight, int cantidadDePersonas , Passenger passenger){
         Plane reservationPlane = flight.getPlane();
         Seat[] reservationSeat = reservationPlane.reserveSeat(cantidadDePersonas ,passenger);
-        return new Ticket();
+        return new Ticket(flight);
     }
 
 

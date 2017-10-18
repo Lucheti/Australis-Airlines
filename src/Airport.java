@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Airport {
 
     String airportCode;
-    ArrayList<Flight> flights = new ArrayList<Flight>();
+    ArrayList<Plane> planes = new ArrayList<Plane>();
 
     public Airport(String airportCode) {
         this.airportCode = airportCode;
@@ -20,11 +20,19 @@ public class Airport {
         Airport airport = (Airport) o;
 
         if (airportCode != null ? !airportCode.equals(airport.airportCode) : airport.airportCode != null) return false;
-        return flights != null ? flights.equals(airport.flights) : airport.flights == null;
+        return planes != null ? planes.equals(airport.planes) : airport.planes == null;
     }
 
     public String toString(){
         return airportCode;
+    }
+
+    private void landPlane (Plane plane){ planes.add(plane); }
+    private void takeOffPlane (Plane plane) {
+        if (planes.contains(plane)) {
+            planes.remove(plane);
+        }
+        throw new RuntimeException("The plane is not in this airport");
     }
 }
 
