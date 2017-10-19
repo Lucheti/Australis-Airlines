@@ -2,25 +2,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Api {
+
     Integer uniquePassengerNumber = 1;
-
     ArrayList<Flight> flights = new ArrayList<>();  //Una lista con todos los vuelos de Australis
-
     ArrayList<Plane> planes = new ArrayList<>(); // Lista con todos los aviones de Australis
-
     HashMap<String,Passenger> passengers = new HashMap<>();  //mapa para guardar a los clientes, se pueden registrar y loguear
 
+
+    public ArrayList<Flight> getFlights() {
+        return flights;
+    }
     void addFlight(Flight flight){
         flights.add(flight);
     }
     void addAirport(){}
     void addAirplane(Plane plane){ planes.add(plane); }
-
     void registerNewPassenger(String dni , String name){
         passengers.put(uniquePassengerNumber.toString(), new Passenger(dni,name));
         uniquePassengerNumber++;
     } //Metodo para crear un nuevo usuario
-
     void validateLogin(String passengerNumber){
         if (passengers.containsKey(passengerNumber)){
             return;
@@ -47,8 +47,18 @@ public class Api {
     }
 
     ArrayList<Flight> sortByFrom (ArrayList<Flight> list, Airport from){
+        ArrayList<Flight> answer = new ArrayList<>();
+        for (Flight flight: list){
+            if (!flight.getFrom().equals(from)){
+//                answer.add(flight);
+                System.out.println(flight.toString());
+            }
+        }
+        return list;
+    }
+    ArrayList<Flight> sortByTo (ArrayList<Flight> list, Airport to){
         for (Flight flight: flights){
-            if (flight.getFrom().equals(from)){
+            if (!flight.getTo().equals(to)){
                 list.remove(flight);
             }
         }

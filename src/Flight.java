@@ -43,8 +43,8 @@ public class Flight {
         return takeOff;
     }
 
-//    public String toString (){
-//        return "Flight from " + from + " to " + to + " the " + getTakeOff();
-//    }
+    public String toString (){
+        return "Flight from " + from + " to " + to + " the " + getTakeOff();
+    }
 
 }
