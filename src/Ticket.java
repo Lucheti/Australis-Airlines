@@ -9,6 +9,6 @@ public class Ticket {
     }
 
     public String toString (){
-        return "Flight from " + flight.getFrom() + " to " + flight.getTo() + " the " + flight.getTakeOff();
+        return "Flight from " + flight.getFrom() + " to " + flight.getTo() + " the " + flight.getDate();
     }
 }

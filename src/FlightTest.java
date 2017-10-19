@@ -44,10 +44,11 @@ public class FlightTest {
     ArrayList<Flight> a = api.getFlights();
 
     a = api.sortByFrom(a,airport1);
+    a = api.sortByTo(a,airport2);
 
-//    for (Flight flight: a){
-//        System.out.println(flight.toString());
-//    }
+    for (Flight flight: a){
+        System.out.println(flight.toString());
+    }
 
 
 

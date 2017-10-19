@@ -32,4 +32,17 @@ public class Date {
     public String toString (){
         return day + "/" + month ;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Date date = (Date) o;
+
+        if (day != date.day) return false;
+        if (month != date.month) return false;
+        return hour == date.hour;
+    }
+
 }

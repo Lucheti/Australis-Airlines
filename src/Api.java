@@ -49,20 +49,32 @@ public class Api {
     ArrayList<Flight> sortByFrom (ArrayList<Flight> list, Airport from){
         ArrayList<Flight> answer = new ArrayList<>();
         for (Flight flight: list){
-            if (!flight.getFrom().equals(from)){
-//                answer.add(flight);
-                System.out.println(flight.toString());
+            if (flight.getFrom().equals(from)){
+                answer.add(flight);
+//                System.out.println(flight.toString());
             }
         }
-        return list;
+        return answer;
     }
+
     ArrayList<Flight> sortByTo (ArrayList<Flight> list, Airport to){
-        for (Flight flight: flights){
-            if (!flight.getTo().equals(to)){
-                list.remove(flight);
+        ArrayList<Flight> answer = new ArrayList<>();
+        for (Flight flight: list){
+            if (flight.getTo().equals(to)){
+                answer.add(flight);
             }
         }
-        return list;
+        return answer;
+    }
+
+    ArrayList<Flight> sortByDate (ArrayList<Flight> list, Date date){
+        ArrayList<Flight> answer = new ArrayList<>();
+        for (Flight flight: list){
+            if(flight.getDate().equals(date)){
+
+            }
+        }
+        return answer;
     }
 
     Ticket reserveSeat (Flight flight, int cantidadDePersonas , Passenger passenger){
