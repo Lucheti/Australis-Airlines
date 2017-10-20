@@ -23,7 +23,7 @@ public class FlightTest {
     Date date1 = new Date(10,2);
     Date date2 = new Date(11,5);
     Flight flight1 = new Flight(null,airport1,airport2,date1);
-    Flight flight2 = new Flight(null,airport1,airport2,date1);
+    Flight flight2 = new Flight(null,airport1,airport2,date2);
     Flight flight3 = new Flight(null,airport3,airport1,date1);
     Flight flight4 = new Flight(null,airport2,airport1,date1);
     Flight flight5 = new Flight(null,airport4,airport4,date1);
@@ -40,11 +40,7 @@ public class FlightTest {
     api.addFlight(flight7);
 
 
-
-    ArrayList<Flight> a = api.getFlights();
-
-    a = api.sortByFrom(a,airport1);
-    a = api.sortByTo(a,airport2);
+    ArrayList<Flight> a = api.searchFlight(airport1,airport2,date2);
 
     for (Flight flight: a){
         System.out.println(flight.toString());

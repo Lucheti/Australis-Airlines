@@ -17,6 +17,7 @@ public class Api {
     }
     void addAirport(){}
     void addAirplane(Plane plane){ planes.add(plane); }
+
     void registerNewPassenger(String dni , String name){
         passengers.put(uniquePassengerNumber.toString(), new Passenger(dni,name));
         uniquePassengerNumber++;
@@ -33,17 +34,9 @@ public class Api {
     ArrayList<Flight> searchFlight(Airport from , Airport to , Date date){
 
         //este array va a ser devuelto al usuraio
-        ArrayList<Flight> searchResult = new ArrayList<>();
+        ArrayList<Flight> searchResult = flights;
 
-        //creo un vuelo con los datos del cliente para comprarlo con los de flights (el avion es null pq no se que avion tendra)
-        Flight search = new Flight(null,from,to,date);
-
-        for (Flight flight: flights){
-            if (search.equals(flight)){
-                searchResult.add(flight);
-            }
-        }
-        return searchResult;
+        return sortByDate(sortByTo(sortByFrom(searchResult,from),to),date);
     }
 
     ArrayList<Flight> sortByFrom (ArrayList<Flight> list, Airport from){
@@ -71,7 +64,7 @@ public class Api {
         ArrayList<Flight> answer = new ArrayList<>();
         for (Flight flight: list){
             if(flight.getDate().equals(date)){
-
+                answer.add(flight);
             }
         }
         return answer;
