@@ -5,6 +5,7 @@ import java.util.ArrayList;
  */
 public class Airport {
 
+    String country;
     String airportCode;
     ArrayList<Plane> planes = new ArrayList<Plane>();
 

@@ -4,30 +4,40 @@ import java.util.HashMap;
 public class Api {
 
     Integer uniquePassengerNumber = 1;
-    ArrayList<Flight> flights = new ArrayList<>();  //Una lista con todos los vuelos de Australis
-    ArrayList<Plane> planes = new ArrayList<>(); // Lista con todos los aviones de Australis
-    HashMap<String,Passenger> passengers = new HashMap<>();  //mapa para guardar a los clientes, se pueden registrar y loguear
+    ArrayList<Flight> flights = new ArrayList<>();              //Lista con todos los vuelos de Australis
+    ArrayList<Plane> planes = new ArrayList<>();                //Lista con todos los aviones de Australis
+    HashMap<String,Airport> airports = new HashMap();           //mapa con todos los destinos y sus aeropuertos correspondientes
+    HashMap<String,Passenger> passengers = new HashMap<>();     //mapa para guardar a los clientes, se pueden registrar y loguear
 
 
     public ArrayList<Flight> getFlights() {
         return flights;
-    }
-    void addFlight(Flight flight){
-        flights.add(flight);
-    }
-    void addAirport(){}
-    void addAirplane(Plane plane){ planes.add(plane); }
+    }                        //Getter
+    public Airport getAirport (String country){
+        if (airports.containsKey(country)){
+            return airports.get(country);
+        }
+        throw new RuntimeException("Airport not found");
+    }                                  //Getter
+
+    void addFlight(Plane plane, Airport from, Airport to, Date date){
+        flights.add(new Flight(plane, from, to, date));
+    }            // Adder
+    void addAirport(String country ,String airportCode){
+        airports.put(country ,new Airport(airportCode));
+    }                         // Adder
+    void addAirplane(Plane plane){ planes.add(plane); }                              // Adder
 
     void registerNewPassenger(String dni , String name){
         passengers.put(uniquePassengerNumber.toString(), new Passenger(dni,name));
         uniquePassengerNumber++;
-    } //Metodo para crear un nuevo usuario
+    }                         //Metodo para crear un nuevo usuario
     void validateLogin(String passengerNumber){
         if (passengers.containsKey(passengerNumber)){
             return;
         }
         throw new RuntimeException("User not found");
-    } //Metodo que determina si existe o no el usuario
+    }                                  //Metodo que determina si existe o no el usuario
 
 
 
@@ -47,7 +57,7 @@ public class Api {
 //                System.out.println(flight.toString());
             }
         }
-        return answer;
+        return from == null? list : answer ;
     }
 
     ArrayList<Flight> sortByTo (ArrayList<Flight> list, Airport to){
@@ -57,7 +67,7 @@ public class Api {
                 answer.add(flight);
             }
         }
-        return answer;
+        return to == null? list : answer ;
     }
 
     ArrayList<Flight> sortByDate (ArrayList<Flight> list, Date date){
@@ -67,7 +77,13 @@ public class Api {
                 answer.add(flight);
             }
         }
-        return answer;
+        return date == null? list : answer ;
+    }
+
+    void sortByStop (ArrayList<Flight> list, int amountOfStops){
+        for (Flight flight: list){
+
+        }
     }
 
     Ticket reserveSeat (Flight flight, int cantidadDePersonas , Passenger passenger){
