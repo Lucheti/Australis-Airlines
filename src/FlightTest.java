@@ -29,29 +29,18 @@ public class FlightTest {
     Date date1 = new Date(10,2);
     Date date2 = new Date(11,5);
 
-    api.addFlight(plane1,api.getAirport("A"),api.getAirport("B"),date1);
-    api.addFlight(plane2,api.getAirport("A"),api.getAirport("B"),date2);
-    api.addFlight(plane1,api.getAirport("C"),api.getAirport("A"),date1);
-    api.addFlight(plane1,api.getAirport("B"),api.getAirport("A"),date1);
-    api.addFlight(plane2,api.getAirport("D"),api.getAirport("C"),date1);
-    api.addFlight(plane1,api.getAirport("A"),api.getAirport("D"),date1);
-    api.addFlight(plane2,api.getAirport("B"),api.getAirport("D"),date1);
-
     api.addAirport("A","AAA");
     api.addAirport("B","BBB");
     api.addAirport("C","CCC");
     api.addAirport("D","DDD");
 
-
-
-
-
-
-
-
-
-
-
+    api.addFlight(plane1,api.getAirport("A"),api.getAirport("D"),date1);
+    api.addFlight(plane2,api.getAirport("A"),api.getAirport("B"),date2);
+    api.addFlight(plane1,api.getAirport("A"),api.getAirport("C"),date1);
+    api.addFlight(plane1,api.getAirport("C"),api.getAirport("D"),date1);
+    api.addFlight(plane2,api.getAirport("B"),api.getAirport("D"),date1);
+    api.addFlight(plane1,api.getAirport("A"),api.getAirport("D"),date2);
+    api.addFlight(plane2,api.getAirport("B"),api.getAirport("D"),date2);
 
 
     // test
@@ -59,9 +48,12 @@ public class FlightTest {
 
 
 
-    ArrayList<Flight> a = api.searchFlight(api.getAirport("A"),null,null);
+    ArrayList<Flight> a = new ArrayList<>();
+    a.add(new Flight(plane1,api.getAirport("A"),api.getAirport("D"),date1));
 
-    for (Flight flight: a){
+    ArrayList<ArrayList<Flight>> rta = api.sortByStop(a);
+
+    for (ArrayList<Flight> flight: rta){
         System.out.println(flight.toString());
     }
 

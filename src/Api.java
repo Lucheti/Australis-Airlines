@@ -80,10 +80,32 @@ public class Api {
         return date == null? list : answer ;
     }
 
-    void sortByStop (ArrayList<Flight> list, int amountOfStops){
+    ArrayList<ArrayList<Flight>> sortByStop (ArrayList<Flight> list ){
+        // stop_To --> desde la escala hasta el destino.
+        // from_Stop --> desde el aeropuerto de salida hasta la escala.
+        ArrayList<ArrayList<Flight>> answer = new ArrayList<>();
+       // para 1 escala:
+        //logica: agarro todos los vuelos que lleguen a destino y pregunto que vuelos salen del origen y llegan al punto de escala.
         for (Flight flight: list){
+            ArrayList<Flight> stop_To = searchFlight(null,flight.getTo(),null);
+            for (Flight stopTo: stop_To){
+                ArrayList<Flight> from_Stop = searchFlight(flight.getFrom(),stopTo.getFrom(),null);
+                    for (Flight fromStop: from_Stop) {
+                        ArrayList<Flight> preAnswer = new ArrayList<>();
+                        // si el destino del primer vuelo es el mismo que el de salida del segundo
+                        // y si ambos vuelos son el mismo dia entonces se agregan los 2 vuelos a una lista
+                        //y se la manda a "answer" que es la que sera devuelta al usuraio.
+                        if ((fromStop.getTo().equals(stopTo.getFrom()))&&(fromStop.getDate().equals(stopTo.getDate()))){
+                            preAnswer.add(fromStop);
+                            preAnswer.add(stopTo);
+                            answer.add(preAnswer);
+                        }
+                    }
+            }
+
 
         }
+        return answer;
     }
 
     Ticket reserveSeat (Flight flight, int cantidadDePersonas , Passenger passenger){
