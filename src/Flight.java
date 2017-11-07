@@ -47,4 +47,6 @@ public class Flight {
         return "Flight from " + from + " to " + to + " the " + getDate();
     }
 
+
+
 }

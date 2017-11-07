@@ -26,26 +26,39 @@ public class Plane {
     }
 
 
-    public Seat[] reserveSeat(int cantidadDePersonas , Passenger passenger) {
-        Seat[] returnSeats = new Seat[cantidadDePersonas];
-        int counter = 0;
-        return reserveSeat(cantidadDePersonas,counter,passenger, returnSeats);
-    }
-    private Seat[] reserveSeat(int cantidadDepersonas, int counter , Passenger passenger, Seat[] returnSeats){
-        if (counter < cantidadDepersonas)
-        for (Seat seat: seats){
-            if (seat.isFree()){
-                seat.reseveSeat(passenger);
-                returnSeats[counter] = seat;
-                counter++;
-                return reserveSeat(cantidadDepersonas,counter,passenger,returnSeats);
+    ArrayList<Seat> availableSeats(Date date){
+        ArrayList<Seat> seats = new ArrayList<>();
+        for (Seat seat: this.seats){
+            if (seat.isFree(date)){
+                seats.add(seat);
             }
         }
-        return returnSeats;
+        return seats;
     }
+
+    void reserveSeats (ArrayList<Seat> seatsSelectedByUser ,Date date , Passenger passenger){
+        ArrayList<Seat> freeSeatsOnDate = availableSeats(date);
+        for (Seat userSeat: seatsSelectedByUser){
+            if (freeSeatsOnDate.contains(userSeat)){
+                int index = this.seats.indexOf(userSeat);
+                this.seats.get(index).reseveSeat(date,passenger);
+            }
+        }
+    }
+
+
+
+
+
     void print(){
         for (Seat seat: seats){
             System.out.println(seat.position);
+        }
+    }
+    void print(Date date){
+        for (Seat seat: seats){
+            System.out.println(seat.position);
+            System.out.println(seat.isFree(date));
         }
     }
 }

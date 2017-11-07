@@ -1,9 +1,11 @@
+import java.util.HashMap;
+
 /**
  * Created by lucasgarcia on 11/10/17.
  */
 public class Seat {
     String position;
-    Passenger passenger;
+    HashMap<Date,Passenger> reserves = new HashMap<>();
     int price;
 
     public Seat(int price , String position) {
@@ -12,8 +14,13 @@ public class Seat {
         this.position = position;
     }
 
-    void reseveSeat(Passenger passenger){this.passenger = passenger;}
-    void clearSeat(){this.passenger = null;}
-    boolean isFree(){ return this.passenger == null ; }
+    void reseveSeat(Date date ,Passenger passenger){ reserves.put(date, passenger); }
+    void clearSeat(Date date){ reserves.remove(date); }
+    boolean isFree(Date date){ return !reserves.containsKey(date); }
+
+    @Override
+    public String toString(){return position;}
+
+
 
 }
