@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class Api {
 
-    Integer uniquePassengerNumber = 1;
+    Integer uniquePassengerNumber = 0;
     ArrayList<Flight> flights = new ArrayList<>();              //Lista con todos los vuelos de Australis
     ArrayList<Plane> planes = new ArrayList<>();                //Lista con todos los aviones de Australis
     HashMap<String,Airport> airports = new HashMap();           //mapa con todos los destinos y sus aeropuertos correspondientes
@@ -12,37 +12,39 @@ public class Api {
 
     public ArrayList<Flight> getFlights() {
         return flights;
-    }                        //Getter
+    }
     public Airport getAirport (String country){
         if (airports.containsKey(country)){
             return airports.get(country);
         }
         throw new RuntimeException("Airport not found");
-    }                                  //Getter
+    }
     public Plane getPlane ( int index ){return planes.get(index); }
 
     void addFlight(Plane plane, Airport from, Airport to, Date date){
         flights.add(new Flight(plane, from, to, date));
     }
-    // Adder
     void addAirport(String country ,String airportCode){
         airports.put(country ,new Airport(airportCode));
-    }                         // Adder
-
+    }
     void addPlane(int rows,int peoplePerRow,int buisnessRows){
         planes.add(new Plane(rows,peoplePerRow,buisnessRows));
-    }                              // Adder
+    }
 
-    void registerNewPassenger(String dni , String name){
-        passengers.put(uniquePassengerNumber.toString(), new Passenger(dni,name));
+    Integer registerNewPassenger(String dni , String name){
         uniquePassengerNumber++;
-    }                         //Metodo para crear un nuevo usuario
-    void validateLogin(String passengerNumber){
-        if (passengers.containsKey(passengerNumber)){
-            return;
+        passengers.put(uniquePassengerNumber.toString(), new Passenger(dni,name));
+        return uniquePassengerNumber;
+    }
+    Passenger login(Integer passengerNumber){
+        if (validateLogin(passengerNumber)){
+            return passengers.get(passengerNumber.toString());
         }
-        throw new RuntimeException("User not found");
-    }                                  //Metodo que determina si existe o no el usuario
+        throw new RuntimeException();
+    }
+    boolean validateLogin(Integer passengerNumber){
+        return passengers.containsKey(passengerNumber.toString());
+    }
 
     String airportList(){
         String answer = "";
@@ -219,7 +221,7 @@ public class Api {
         return flight.getPlane().availableSeats(flight.getDate());
     }
 
-    Ticket reserveSeat(Flight flight , ArrayList<Seat> userSeats, Passenger passengerId){
+    Ticket reserveSeats(Flight flight , ArrayList<Seat> userSeats, Passenger passengerId){
         flight.getPlane().reserveSeats(userSeats,flight.getDate(),passengerId);
         return new Ticket(flight,userSeats);
     }

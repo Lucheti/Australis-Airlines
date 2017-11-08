@@ -6,10 +6,14 @@ import java.util.ArrayList;
 public class Passenger {
 
     String dni;
-    String nombre;
+    String name;
 
     public Passenger(String dni, String name) {
         this.dni = dni;
-        this.nombre = nombre;
+        this.name = name;
+    }
+
+    public String getNombre() {
+        return name;
     }
 }

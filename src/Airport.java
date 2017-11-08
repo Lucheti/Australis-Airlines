@@ -27,6 +27,7 @@ public class Airport {
     public String toString(){
         return airportCode;
     }
+    public String getCountry(){ return country; }
 
     private void landPlane (Plane plane){ planes.add(plane); }
     private void takeOffPlane (Plane plane) {

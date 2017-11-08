@@ -45,4 +45,13 @@ public class Date {
         return hour == date.hour;
     }
 
+    public boolean isBefore(Date date){
+        if (this == date) return true;
+        if (date == null || getClass() != date.getClass()) return false;
+
+        if (month >= date.month) return false;
+//        if (day >= date.day) return true;
+//        return hour >= date.hour;
+        return  day <= date.day;
+    }
 }

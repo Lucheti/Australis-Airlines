@@ -21,6 +21,7 @@ public class Seat {
     @Override
     public String toString(){return position;}
 
-
-
+    public String getPosition() {
+        return position;
+    }
 }

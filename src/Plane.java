@@ -37,15 +37,26 @@ public class Plane {
     }
 
     void reserveSeats (ArrayList<Seat> seatsSelectedByUser ,Date date , Passenger passenger){
-        ArrayList<Seat> freeSeatsOnDate = availableSeats(date);
-        for (Seat userSeat: seatsSelectedByUser){
-            if (freeSeatsOnDate.contains(userSeat)){
-                int index = this.seats.indexOf(userSeat);
-                this.seats.get(index).reseveSeat(date,passenger);
-            }
+        ArrayList<Seat> availableSeatsOnDate = availableSeats(date);
+        if (!validateSeats(seatsSelectedByUser,availableSeatsOnDate)) {
+            throw new RuntimeException("Selected a bad seat you bastard");
+        }
+        for (Seat seat: seatsSelectedByUser){
+            int index = this.seats.indexOf(seat);
+            this.seats.get(index).reseveSeat(date, passenger);
+            System.out.println(seat + "asd");
         }
     }
 
+    //DEVUELVE TRUE SI TODOS LOS ASIENTOS EN "seatsSelectesByUser" ESTAN EN "freeSeatsOnDate" Y SI ENCUENTRA UNO QUE NO ESTA DEVUELVE FALSE
+    private boolean validateSeats(ArrayList<Seat> seatsSelectedByUser , ArrayList<Seat> freeSeatsOnDate ){
+        for (Seat seat: seatsSelectedByUser){
+            if (!freeSeatsOnDate.contains(seat)){
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 
