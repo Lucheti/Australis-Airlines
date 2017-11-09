@@ -1,27 +1,27 @@
 
 import java.util.HashMap;
 
-/**
- * Created by Nicole on 11/9/17.
- */
-public class Pilot extends Employee {
-    String area = "Pilot";
-    HashMap<Date, Boolean> availability= new HashMap<>();
-    Airport location;
+class Pilot extends Employee {
+    private String area = "Pilot";
+    private HashMap<Date, Boolean> availability= new HashMap<>();
+    private Airport location;
 
-    public Pilot(Airport location) {
-        this.location = location;
+    Pilot(Airport inicialPilotAirport) {
+        this.location = inicialPilotAirport;
     }
 
 
 
-    public boolean getAvailability(Date date) {
+    boolean isAvailable(Date date) {
         boolean available = false;
-        if (availability.get(date) == true){
+        if (availability.get(date)){
             available = true;
         }
         return available;
     }
 
+    public Airport getLocation() {
+        return location;
+    }
 }
 

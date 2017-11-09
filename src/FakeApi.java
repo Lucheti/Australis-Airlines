@@ -17,7 +17,7 @@ public class FakeApi {
         *private Airport to;
         *private Date date;
         */
-        Plane a = new Plane(12, 5, 6,"asdasdasdasdas");
+        Plane a = new Plane(12, 5, 6,"asdasdasdasdas",null);
         Airport from = new Airport("Eze");
         Airport to = new Airport("Mia");
         Date date = new Date();

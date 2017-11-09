@@ -9,9 +9,6 @@ public class Plane {
 
     private ArrayList<Seat> seats = new ArrayList<>();
     private String planeCode;
-    private int turistClassPrice;
-    private int buisnessClassPrice;
-
 
     Plane(int rows, int peoplePerRow, int buisnessRows , String planeCode , PriceCatalog priceCatalog) {
 
@@ -68,14 +65,6 @@ public class Plane {
     void print(){
         for (Seat seat: seats){
             System.out.println(seat.getPosition());
-        }
-    }
-    void print(Flight flight){
-        for (Seat seat: seats){
-            System.out.println(seat.getPosition());
-            System.out.println(seat.isFree(date));
-            System.out.println(seat.position);
-            System.out.println(seat.isFree(flight));
         }
     }
 }

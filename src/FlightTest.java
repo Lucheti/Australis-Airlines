@@ -41,12 +41,7 @@ public class FlightTest {
     api.addFlight(api.getPlane(1),api.getAirport("D"),api.getAirport("C"),date2);
 
 
-    for (ArrayList<Flight> flight: api.searchFlight(api.getAirport("A"),null,date2,2)){
-        System.out.println(flight);
-    }
-    for (Flight flight: api.flights){
-        System.out.println(flight);
-    }
+    System.out.println(api.searchFlight(api.getAirport("A"),api.getAirport("D"),date1));
    }
 
 }
