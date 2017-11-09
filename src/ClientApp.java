@@ -1,8 +1,5 @@
 import java.util.ArrayList;
 
-/**
- * Created by lucasgarcia on 2/11/17.
- */
 public class ClientApp {
     public static void main(String[] args) {
 
@@ -14,10 +11,9 @@ public class ClientApp {
         api.addPlane(10,4,2);
         api.addPlane(10,4,1);
 
-        Date date4 = new Date(19,1);
-        Date date1 = new Date(19,1);
-        Date date2 = new Date(11,5);
-        Date date3 = new Date(15,7);
+        Date date1 = new Date(19,1,23,00);
+        Date date2 = new Date(11,5,01,24);
+        Date date3 = new Date(15,7,01,01);
 
         api.addAirport("A","AAA");
         api.addAirport("B","BBB");
@@ -39,7 +35,7 @@ public class ClientApp {
                 int option = Scanner.getInt("1: login \n2: register\n");
                 switch (option) {
                     case 1:
-                            passenger= api.login(Scanner.getString("enter your passenger number"));
+                            passenger= api.login(Scanner.getString("enter your passenger number\n"));
                             System.out.println("logged in as " + passenger.getName());
                             logged = true;
                             break;
@@ -50,7 +46,7 @@ public class ClientApp {
                 }
             }
             while (logged) {
-                int option = Scanner.getInt("opciones: \n 1: buscar un vuelo\n 2:ver historial de vuelo\n 6:quit\n 7:logout ");
+                int option = Scanner.getInt("opciones: \n 1: buscar un vuelo\n 2: ver historial de vuelo\n 6: logout\n 7: quit ");
                 switch (option) {
                     case 1:
                             //SE LE PIDE AL USUARIO AEROPUERTO DE SALIDA , LLEGADA , DIA , CANTIDAD DE ESCALAS Y CANTIDAD DE PASAJEROS
@@ -106,10 +102,10 @@ public class ClientApp {
                     case 4:
                     case 5:
                     case 6:
-                            programIsRuning = false;
-
-                    case 7:
                             logged = false;
+                            break;
+                    case 7:
+                            programIsRuning = false;
 
                 }
             }
