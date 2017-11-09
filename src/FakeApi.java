@@ -22,9 +22,10 @@ public class FakeApi {
         Airport from = new Airport("Eze");
         Airport to = new Airport("Mia");
         Date date = new Date();
+        Pilot pilot = new Pilot(from);
 
 
-        Flight flighta = new Flight(a, from, to, date);
+        Flight flighta = new Flight(a, from, to, date, pilot);
         flights.add(flighta);
         return flights;
 

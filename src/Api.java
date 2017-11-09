@@ -8,6 +8,7 @@ public class Api {
     HashMap<String,Airport> airports = new HashMap();           //mapa con todos los destinos y sus aeropuertos correspondientes
     HashMap<String,Passenger> passengers = new HashMap<>();     //mapa para guardar a los clientes, se pueden registrar y loguear
 
+    ArrayList<Pilot> pilots = new ArrayList<>();
     Airport getAirport (String country){
         if (airports.containsKey(country)){
             return airports.get(country);
@@ -16,12 +17,28 @@ public class Api {
     }
     Plane getPlane ( int index ){return planes.get(index); }
 
-    void addFlight(Plane plane, Airport from, Airport to, Date date){
-        flights.add(new Flight(plane, from, to, date));
+
+    void addPilot(Pilot pilot){
+        pilots.add(pilot);
     }
+
+    void addFlight (Plane plane, Airport from, Airport to, Date date){
+
+
+        for (Pilot pilot: pilots) {
+            if ((pilot.getAvailability(date) == true) && (from.equals(pilot.location)))  {
+                flights.add(new Flight(plane, from, to, date, pilot));
+                break;
+            }
+        }
+
+
+    }
+
     void addAirport(String country ,String airportCode){
         airports.put(country ,new Airport(airportCode));
     }
+
     void addPlane(int rows,int peoplePerRow,int buisnessRows){
         planes.add(new Plane(rows,peoplePerRow,buisnessRows));
     }
@@ -47,7 +64,6 @@ public class Api {
         return answer;
     }
 
-
     ArrayList<ArrayList<Flight>> searchFlight(Airport from , Airport to , Date date , int numberOfStops){
 
         //este array va a ser devuelto al usuraio
@@ -56,7 +72,7 @@ public class Api {
         return sortByStop(sortByDate(sortByTo(sortByFrom(searchResult,from),to),date),numberOfStops);
     }
 
-    private ArrayList<Flight> searchFlight(Airport from , Airport to , Date date){
+    ArrayList<Flight> searchFlight(Airport from , Airport to , Date date){
 
         //este array va a ser devuelto al usuraio
         ArrayList<Flight> searchResult = flights;
@@ -100,18 +116,20 @@ public class Api {
         ArrayList<ArrayList<Flight>> answer = new ArrayList<>();
         if (numberOfStops == 2){
             for (Flight flight: list) {
+                //to,do lo que llega a destino
                 ArrayList<Flight> stop2_To = searchFlight(null, flight.getTo(), null);
-                for (Flight stop_To: stop2_To){
+                //poner que NO puede ser igual a from...
+                for (Flight stop2__To: stop2_To){
                     //todos los que salgan del origen
                     ArrayList<Flight> from_stop1 = searchFlight(flight.getFrom(), null, null);
-                    for (Flight from_stop: from_stop1){
-                        ArrayList<Flight> stop2 = searchFlight(from_stop.getTo(),stop_To.getFrom(),null);
-                        for (Flight stop: stop2){
-                            if((from_stop.getDate().isBefore(stop.getDate()))&&(stop.getDate().isBefore(stop_To.getDate()))) {
+                    for (Flight from__stop1: from_stop1){
+                        ArrayList<Flight> stop2 = searchFlight(from__stop1.getTo(),stop2__To.getFrom(),null);
+                        for (Flight stop1_stop2: stop2){
+                            if((from__stop1.getDate().isBefore(stop1_stop2.getDate()))&&(stop1_stop2.getDate().isBefore(stop2__To.getDate()))&&(from__stop1.getTo() != stop2__To.getTo())&&(stop1_stop2.getTo() != from__stop1.getFrom())) {
                                 ArrayList<Flight> preAnswer = new ArrayList<>();
-                                preAnswer.add(from_stop);
-                                preAnswer.add(stop);
-                                preAnswer.add(stop_To);
+                                preAnswer.add(from__stop1);
+                                preAnswer.add(stop1_stop2);
+                                preAnswer.add(stop2__To);
                                 answer.add(preAnswer);
                             }
                         }
@@ -151,11 +169,11 @@ public class Api {
     }
 
     ArrayList<Seat> availableSeats(Flight flight){
-        return flight.getPlane().availableSeats(flight.getDate());
+        return flight.getPlane().availableSeats(flight);
     }
 
     Ticket reserveSeats(Flight flight , ArrayList<Seat> userSeats, Passenger passengerId){
-        flight.getPlane().reserveSeats(userSeats,flight.getDate(),passengerId);
+        flight.getPlane().reserveSeats(userSeats,flight,passengerId);
         Ticket ticket = new Ticket(flight,userSeats,passengerId);
         addTicketToPassengerHistory(ticket,passengerId);
         return ticket;
