@@ -9,7 +9,7 @@ public class Flight {
     private Date date;
     private Pilot pilot;
 
-    Flight(Plane plane, Airport from, Airport to, Date day) {
+    Flight(Plane plane, Airport from, Airport to, Date day, Pilot pilot) {
         this.plane = plane;
         this.from = from;
         this.to = to;
