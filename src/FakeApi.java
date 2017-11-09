@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Created by Nicole on 10/20/17.
@@ -33,13 +34,19 @@ public class FakeApi {
         Airport airport = new Airport("Eze");
         airports.put("Miami", airport);
 
-        if (airports.containsKey(country)){
-            return airports.get(country);
+        try {
+            airports.containsKey(country);
+        }catch (Exception e){
+            throw new RuntimeException("Airport not found");
+
         }
-        throw new RuntimeException("Airport not found");
+        return airports.get(country);
+
     }                                  //Getter
 
-
+    public Set<String> getAirports (){
+        return airports.keySet();
+    }
 
     public ArrayList<Flight> searchFlight(Airport from , Airport to , Date date) {
 
