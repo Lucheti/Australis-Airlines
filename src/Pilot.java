@@ -13,6 +13,8 @@ public class Pilot extends Employee {
         this.location = location;
     }
 
+
+
     public boolean getAvailability(Date date) {
         boolean available = false;
         if (availability.get(date) == true){

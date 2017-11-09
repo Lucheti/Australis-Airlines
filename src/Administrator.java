@@ -3,13 +3,10 @@
  */
 public class Administrator extends Employee{
     String area = "Administrator";
-    private boolean capabilityToSell = false;
-    public String location;
-
 
     public boolean validateSell(){
         boolean validator = false;
-        if (location.equals("ventas")){
+        if (Employee.area.equals("Ventas")){
             validator = true;
         }
         return validator;
