@@ -7,6 +7,8 @@ public class Api {
     ArrayList<Plane> planes = new ArrayList<>();                //Lista con todos los aviones de Australis
     HashMap<String,Airport> airports = new HashMap();           //mapa con todos los destinos y sus aeropuertos correspondientes
     HashMap<String,Passenger> passengers = new HashMap<>();     //mapa para guardar a los clientes, se pueden registrar y loguear
+    CodeGenerator codeGenerator = new CodeGenerator();
+    PriceCatalog priceCatalog = new PriceCatalog();
 
     Airport getAirport (String country){
         if (airports.containsKey(country)){
@@ -23,7 +25,7 @@ public class Api {
         airports.put(country ,new Airport(airportCode));
     }
     void addPlane(int rows,int peoplePerRow,int buisnessRows){
-        planes.add(new Plane(rows,peoplePerRow,buisnessRows));
+        planes.add(new Plane(rows,peoplePerRow,buisnessRows,codeGenerator.getUniquePlaneCode()));
     }
 
     void registerNewPassenger(String dni , String name){

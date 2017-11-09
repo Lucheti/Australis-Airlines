@@ -13,7 +13,7 @@ public class Plane {
     private int buisnessClassPrice;
 
 
-    Plane(int rows, int peoplePerRow, int buisnessRows) {
+    Plane(int rows, int peoplePerRow, int buisnessRows , String planeCode) {
         for (int i = 1; i <= rows ; i++) {
             for (int j = 0; j < peoplePerRow; j++) {
                 if (i <= buisnessRows) {
@@ -23,6 +23,7 @@ public class Plane {
                 }
             }
         }
+        this.planeCode = planeCode;
     }
 
 
@@ -58,17 +59,18 @@ public class Plane {
         return true;
     }
 
-
-
+    public String getPlaneCode() {
+        return planeCode;
+    }
 
     void print(){
         for (Seat seat: seats){
-            System.out.println(seat.position);
+            System.out.println(seat.getPosition());
         }
     }
     void print(Date date){
         for (Seat seat: seats){
-            System.out.println(seat.position);
+            System.out.println(seat.getPosition());
             System.out.println(seat.isFree(date));
         }
     }
