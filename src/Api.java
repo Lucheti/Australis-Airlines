@@ -10,6 +10,7 @@ public class Api {
     CodeGenerator codeGenerator = new CodeGenerator();
     PriceCatalog priceCatalog = new PriceCatalog();
 
+    ArrayList<Pilot> pilots = new ArrayList<>();
     Airport getAirport (String country){
         if (airports.containsKey(country)){
             return airports.get(country);
@@ -18,12 +19,28 @@ public class Api {
     }
     Plane getPlane ( int index ){return planes.get(index); }
 
-    void addFlight(Plane plane, Airport from, Airport to, Date date){
-        flights.add(new Flight(plane, from, to, date));
+
+    void addPilot(Pilot pilot){
+        pilots.add(pilot);
     }
+
+    void addFlight (Plane plane, Airport from, Airport to, Date date){
+
+
+        for (Pilot pilot: pilots) {
+            if ((pilot.getAvailability(date) == true) && (from.equals(pilot.location)))  {
+                flights.add(new Flight(plane, from, to, date, pilot));
+                break;
+            }
+        }
+
+
+    }
+
     void addAirport(String country ,String airportCode){
         airports.put(country ,new Airport(airportCode));
     }
+
     void addPlane(int rows,int peoplePerRow,int buisnessRows){
         planes.add(new Plane(rows,peoplePerRow,buisnessRows,codeGenerator.getUniquePlaneCode()));
     }
@@ -154,11 +171,11 @@ public class Api {
     }
 
     ArrayList<Seat> availableSeats(Flight flight){
-        return flight.getPlane().availableSeats(flight.getDate());
+        return flight.getPlane().availableSeats(flight);
     }
 
     Ticket reserveSeats(Flight flight , ArrayList<Seat> userSeats, Passenger passengerId){
-        flight.getPlane().reserveSeats(userSeats,flight.getDate(),passengerId);
+        flight.getPlane().reserveSeats(userSeats,flight,passengerId);
         Ticket ticket = new Ticket(flight,userSeats,passengerId);
         addTicketToPassengerHistory(ticket,passengerId);
         return ticket;

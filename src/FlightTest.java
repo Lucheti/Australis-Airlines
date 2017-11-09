@@ -47,7 +47,6 @@ public class FlightTest {
     for (Flight flight: api.flights){
         System.out.println(flight);
     }
-
    }
 
 }

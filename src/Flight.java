@@ -1,16 +1,20 @@
-
+/**
+ * Created by lucasgarcia on 11/10/17.
+ */
 public class Flight {
 
     private Plane plane;
     private Airport from;
     private Airport to;
     private Date date;
+    private Pilot pilot;
 
-    Flight(Plane plane, Airport from, Airport to, Date day) {
+    Flight(Plane plane, Airport from, Airport to, Date day, Pilot pilot) {
         this.plane = plane;
         this.from = from;
         this.to = to;
         this.date = day;
+        this.pilot = pilot;
     }
 
     @Override
