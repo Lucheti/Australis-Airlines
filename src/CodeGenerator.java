@@ -5,6 +5,7 @@ public class CodeGenerator {
     Integer uniquePlaneCode = 1000;
     String uniqueFlightCode;
 
+
     String getUniquePlaneCode() {
         return "AA" +(uniquePlaneCode+=5).toString();
     }

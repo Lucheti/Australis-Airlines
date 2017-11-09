@@ -9,21 +9,21 @@ public class Plane {
 
     private ArrayList<Seat> seats = new ArrayList<>();
     private String planeCode;
-    private int turistClassPrice;
-    private int buisnessClassPrice;
 
 
-    Plane(int rows, int peoplePerRow, int buisnessRows , String planeCode) {
+    Plane(int rows, int peoplePerRow, int buisnessRows , String planeCode , PriceCatalog priceCatalog) {
+
+        this.planeCode = planeCode;
+
         for (int i = 1; i <= rows ; i++) {
             for (int j = 0; j < peoplePerRow; j++) {
                 if (i <= buisnessRows) {
-                    seats.add(new Seat(buisnessClassPrice,"" + i + (char)(j+97),"Buisness"));
+                    seats.add(new Seat(priceCatalog.getPrice("Buisness"),"" + i + (char)(j+97),"Buisness"));
                 }else {
-                    seats.add(new Seat(turistClassPrice,"" + i + (char)(j+97),"Turist"));
+                    seats.add(new Seat(priceCatalog.getPrice("Turist"),"" + i + (char)(j+97),"Turist"));
                 }
             }
         }
-        this.planeCode = planeCode;
     }
 
 
