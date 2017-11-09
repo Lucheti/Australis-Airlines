@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 public class Seat {
     private String position;
-    private HashMap<Date,Passenger> reserves = new HashMap<>();
+    private HashMap<Flight,Passenger> reserves = new HashMap<>();
     private int price;
     private String category;
 
