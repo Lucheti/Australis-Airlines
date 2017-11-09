@@ -1,13 +1,6 @@
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 
-import static org.junit.Assert.*;
-
-/**
- * Created by lucasgarcia on 13/10/17.
- */
 public class FlightTest {
 
 

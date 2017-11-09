@@ -1,23 +1,22 @@
 import java.util.ArrayList;
 
-/**
- * Created by lucasgarcia on 12/10/17.
- */
 public class Ticket {
-    Flight flight;
-    ArrayList<Seat> seats;
+    private Flight flight;
+    private ArrayList<Seat> seats;
+    private Passenger passenger;
 
-    public Ticket(Flight flight, ArrayList<Seat> userSeats) {
+    Ticket(Flight flight, ArrayList<Seat> userSeats,Passenger passenger) {
 
         this.flight = flight;
         this.seats = userSeats;
+        this.passenger = passenger;
     }
 
     public String toString (){
-        String seatList = "";
+        StringBuilder seatList = new StringBuilder();
         for (Seat seat: seats){
-            seatList += seat.position + " ";
+            seatList.append(seat.position).append(" ");
         }
-        return "Flight from " + flight.getFrom() + " to " + flight.getTo() + " the " + flight.getDate() + " " + seatList;
+        return "Flight from " + flight.getFrom() + " to " + flight.getTo() + " the " + flight.getDate() + " " + seatList + " " + passenger.getName();
     }
 }

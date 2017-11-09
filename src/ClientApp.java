@@ -33,83 +33,83 @@ public class ClientApp {
         api.addFlight(api.getPlane(1),api.getAirport("B"),api.getAirport("C"),date2);
         api.addFlight(api.getPlane(1),api.getAirport("C"),api.getAirport("B"),date2);
         api.addFlight(api.getPlane(1),api.getAirport("B"),api.getAirport("D"),date2);
+
         while (programIsRuning) {
             while (!logged) {
                 int option = Scanner.getInt("1: login \n2: register\n");
                 switch (option) {
                     case 1:
-                            passenger= api.login(Scanner.getInt("enter your passenger number"));
-                            System.out.println("logged in as " + passenger.getNombre());
+                            passenger= api.login(Scanner.getString("enter your passenger number"));
+                            System.out.println("logged in as " + passenger.getName());
                             logged = true;
                             break;
 
-                    case 2: int uniquePassengerNumber = api.registerNewPassenger(Scanner.getString("dni"),Scanner.getString("name"));
-                            System.out.println("your unique passenger number is: " + uniquePassengerNumber);
-                            passenger = api.login(uniquePassengerNumber);
-                            System.out.println("logged in as " + passenger.getNombre());
-                            logged = true;
+                    case 2: api.registerNewPassenger(Scanner.getString("Dni\n"),Scanner.getString("name\n"));
+                            System.out.println("Register succesfull\n");
                             break;
-
                 }
             }
             while (logged) {
-                int option = Scanner.getInt("opciones: \n 1: buscar un vuelo\n 6:logout \n 7:quit ");
+                int option = Scanner.getInt("opciones: \n 1: buscar un vuelo\n 2:ver historial de vuelo\n 6:quit\n 7:logout ");
                 switch (option) {
                     case 1:
-                        //SE LE PIDE AL USUARIO AEROPUERTO DE SALIDA , LLEGADA , DIA , CANTIDAD DE ESCALAS Y CANTIDAD DE PASAJEROS
-                        Airport from = api.getAirport(Scanner.getString("Aeropuerto de salida:\n" + api.airportList()).toUpperCase());
-                        Airport to = api.getAirport(Scanner.getString("\nAeropuerto de llegada: \n" + api.airportList()).toUpperCase());
-                        int numberOfstops = Scanner.getInt("Numero de escalas: \n0 (Vuelo directo) \n1 \n2 \n3 (Me es indiferente) ");
-                        Date date = new Date(Scanner.getInt("dia"), Scanner.getInt("mes"));
-                        int numberOfPassengers = Scanner.getInt("Cuantas personas viajan?\n");
+                            //SE LE PIDE AL USUARIO AEROPUERTO DE SALIDA , LLEGADA , DIA , CANTIDAD DE ESCALAS Y CANTIDAD DE PASAJEROS
+                            Airport from = api.getAirport(Scanner.getString("Aeropuerto de salida:\n" + api.airportList()).toUpperCase());
+                            Airport to = api.getAirport(Scanner.getString("\nAeropuerto de llegada: \n" + api.airportList()).toUpperCase());
+                            int numberOfstops = Scanner.getInt("Numero de escalas: \n0 (Vuelo directo) \n1 \n2 \n3 (Me es indiferente) ");
+                            Date date = new Date(Scanner.getInt("dia"), Scanner.getInt("mes"));
+                            int numberOfPassengers = Scanner.getInt("Cuantas personas viajan?\n");
 
-                        //BUSQUEDA DE TODAS LAS POSIBLES COMBINACIONES DE VUELOS CON RESPECTO A LOS PARAMETROS INDICADOS
-                        ArrayList<ArrayList<Flight>> flightListList = api.searchFlight(from, to, date, numberOfstops);
+                            //BUSQUEDA DE TODAS LAS POSIBLES COMBINACIONES DE VUELOS CON RESPECTO A LOS PARAMETROS INDICADOS
+                            ArrayList<ArrayList<Flight>> flightListList = api.searchFlight(from, to, date, numberOfstops);
 
-                        //IMPRIME LOS POSIBLES RESULTADOS
-                        for (ArrayList<Flight> flightlist : flightListList) {
-                            System.out.print(flightListList.indexOf(flightlist) + 1); //el +1 es para q quede lindo
-                            System.out.println(flightlist);
-                        }
+                            //IMPRIME LOS POSIBLES RESULTADOS
+                            for (ArrayList<Flight> flightlist : flightListList) {
+                                System.out.print(flightListList.indexOf(flightlist) + 1); //el +1 es para q quede lindo
+                                System.out.println(flightlist);
+                            }
 
-                        //EL USUARIO ELIGE UN VUELO
-                        ArrayList<Flight> wantedFlight = flightListList.get(Scanner.getInt("Que vuelo desea?\n") - 1); // el -1 es por el +1 de arriba
+                            //EL USUARIO ELIGE UN VUELO
+                            ArrayList<Flight> wantedFlight = flightListList.get(Scanner.getInt("Que vuelo desea?\n") - 1); // el -1 es por el +1 de arriba
 
-                        //POR CADA VUELO EN EL ARREGLO SELECCIONADO (PUEDE SER 1 , 2 O 3 DEPENDIENDO DE LAS ESCALAS) EL USUARIO SELECCIONA LOS ASIENTOS
-                        for (Flight flight : wantedFlight) {
-                            System.out.println(flight);
-                            //ARREGLO CON LOS ASIENTOS DISPONIBLES PARA ESTE VUELO
-                            ArrayList<Seat> availableSeats = api.availableSeats(flight);
+                            //POR CADA VUELO EN EL ARREGLO SELECCIONADO (PUEDE SER 1 , 2 O 3 DEPENDIENDO DE LAS ESCALAS) EL USUARIO SELECCIONA LOS ASIENTOS
+                            for (Flight flight : wantedFlight) {
+                                System.out.println(flight);
+                                //ARREGLO CON LOS ASIENTOS DISPONIBLES PARA ESTE VUELO
+                                ArrayList<Seat> availableSeats = api.availableSeats(flight);
 
-                            //ARREGLO VACIO QUE SERA LLENADO Y LUEGO ENVIADO AL API PARA POSTERIORMENTE SER RESERVADOS
-                            ArrayList<Seat> wantedSeats = new ArrayList<>();
+                                //ARREGLO VACIO QUE SERA LLENADO Y LUEGO ENVIADO AL API PARA POSTERIORMENTE SER RESERVADOS
+                                ArrayList<Seat> wantedSeats = new ArrayList<>();
 
-                            System.out.println(availableSeats);
-                            for (int i = 0; i < numberOfPassengers; i++) {
-                                //ACA EL USUARIO SELECCIONA EL ASIENTO QUE DESEA (UNO POR CADA PASAJERO)
-                                String position = Scanner.getString("indique el " + (i + 1) + " asiento que desea\n").toLowerCase();
-                                for (Seat seat : availableSeats) {
-                                    if (seat.getPosition().equals(position)) {
-                                        wantedSeats.add(seat);
-                                        break;
+                                System.out.println(availableSeats);
+                                for (int i = 0; i < numberOfPassengers; i++) {
+                                    //ACA EL USUARIO SELECCIONA EL ASIENTO QUE DESEA (UNO POR CADA PASAJERO)
+                                    String position = Scanner.getString("indique el " + (i + 1) + " asiento que desea\n").toLowerCase();
+                                    for (Seat seat : availableSeats) {
+                                        if (seat.getPosition().equals(position)) {
+                                            wantedSeats.add(seat);
+                                            break;
+                                        }
                                     }
                                 }
+                                if (wantedSeats.size()<numberOfPassengers){
+                                    throw new RuntimeException("Error");
+                                }
+                                System.out.println(api.reserveSeats(flight, wantedSeats, passenger));
                             }
-                            if (wantedSeats.size()<numberOfPassengers){
-                                throw new RuntimeException("Error");
-                            }
-                            System.out.println(api.reserveSeats(flight, wantedSeats, passenger));
-                        }
-                        break;
+                            break;
                     case 2:
+                            System.out.println(passenger.flyHistory());
+                            break;
                     case 3:
+
                     case 4:
                     case 5:
                     case 6:
-                            logged = false;
-                            break;
-                    case 7:
                             programIsRuning = false;
+
+                    case 7:
+                            logged = false;
 
                 }
             }

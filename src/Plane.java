@@ -17,9 +17,9 @@ public class Plane {
         for (int i = 1; i <= rows ; i++) {
             for (int j = 0; j < peoplePerRow; j++) {
                 if (i <= buisnessRows) {
-                    seats.add(new Seat(buisnessClassPrice,"" + i + (char)(j+97)));
+                    seats.add(new Seat(buisnessClassPrice,"" + i + (char)(j+97),"Buisness"));
                 }else {
-                    seats.add(new Seat(turistClassPrice,"" + i + (char)(j+97)));
+                    seats.add(new Seat(turistClassPrice,"" + i + (char)(j+97),"Turist"));
                 }
             }
         }

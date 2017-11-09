@@ -1,19 +1,33 @@
 import java.util.ArrayList;
 
-/**
- * Created by lucasgarcia on 11/10/17.
- */
-public class Passenger {
+class Passenger {
 
-    String dni;
-    String name;
+    private String dni;
+    private String name;
+    private ArrayList<Ticket> flyHistory = new ArrayList<>();
 
-    public Passenger(String dni, String name) {
+    Passenger(String dni, String name) {
         this.dni = dni;
         this.name = name;
     }
 
-    public String getNombre() {
+    String getName() {
         return name;
+    }
+
+    String getDni() {
+        return dni;
+    }
+
+    void addFlightToHistory(Ticket ticket){
+        flyHistory.add(ticket);
+    }
+
+    String flyHistory(){
+        StringBuilder answer = new StringBuilder();
+        for (Ticket ticket: flyHistory){
+            answer.append(ticket.toString()).append("\n");
+        }
+        return answer.toString();
     }
 }
