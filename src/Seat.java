@@ -1,15 +1,12 @@
 import java.util.HashMap;
 
-/**
- * Created by lucasgarcia on 11/10/17.
- */
 public class Seat {
-    String position;
-    HashMap<Date,Passenger> reserves = new HashMap<>();
-    int price;
-    String category;
+    private String position;
+    private HashMap<Date,Passenger> reserves = new HashMap<>();
+    private int price;
+    private String category;
 
-    public Seat(int price , String position, String category) {
+    Seat(int price , String position, String category) {
 
         this.price = price;
         this.position = position;
@@ -23,7 +20,11 @@ public class Seat {
     @Override
     public String toString(){return position + " " + category ;}
 
-    public String getPosition() {
+    String getPosition() {
         return position;
+    }
+
+    int getPrice() {
+        return price;
     }
 }

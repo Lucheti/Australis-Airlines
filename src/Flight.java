@@ -1,6 +1,4 @@
-/**
- * Created by lucasgarcia on 11/10/17.
- */
+
 public class Flight {
 
     private Plane plane;
@@ -8,7 +6,7 @@ public class Flight {
     private Airport to;
     private Date date;
 
-    public Flight(Plane plane, Airport from, Airport to, Date day) {
+    Flight(Plane plane, Airport from, Airport to, Date day) {
         this.plane = plane;
         this.from = from;
         this.to = to;
@@ -22,24 +20,22 @@ public class Flight {
 
         Flight flight = (Flight) o;
 
-        if (getFrom() != null ? !getFrom().equals(flight.getFrom()) : flight.getFrom() != null) return false;
-        if (getTo() != null ? !getTo().equals(flight.getTo()) : flight.getTo() != null) return false;
-        return getDate() != null ? getDate().equals(flight.getDate()) : flight.getDate() == null;
+        return (getFrom() != null ? getFrom().equals(flight.getFrom()) : flight.getFrom() == null) && (getTo() != null ? getTo().equals(flight.getTo()) : flight.getTo() == null) && (getDate() != null ? getDate().equals(flight.getDate()) : flight.getDate() == null);
     }
 
-    public Plane getPlane() {
+    Plane getPlane() {
         return plane;
     }
 
-    public Airport getFrom() {
+    Airport getFrom() {
         return from;
     }
 
-    public Airport getTo() {
+    Airport getTo() {
         return to;
     }
 
-    public Date getDate() {
+    Date getDate() {
         return date;
     }
 
