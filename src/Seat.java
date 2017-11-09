@@ -5,7 +5,7 @@ import java.util.HashMap;
  */
 public class Seat {
     String position;
-    HashMap<Date,Passenger> reserves = new HashMap<>();
+    HashMap<Flight,Passenger> reserves = new HashMap<>();
     int price;
     String category;
 
@@ -16,9 +16,9 @@ public class Seat {
         this.category = category;
     }
 
-    void reseveSeat(Date date ,Passenger passenger){ reserves.put(date, passenger); }
-    void clearSeat(Date date){ reserves.remove(date); }
-    boolean isFree(Date date){ return !reserves.containsKey(date); }
+    void reseveSeat(Flight flight ,Passenger passenger){ reserves.put(flight, passenger); }
+    void clearSeat(Flight flight){ reserves.remove(flight); }
+    boolean isFree(Flight flight){ return !reserves.containsKey(flight); }
 
     @Override
     public String toString(){return position + " " + category ;}

@@ -13,6 +13,7 @@ public class Plane {
     int buisnessClassPrice;
 
 
+
     public Plane(int rows, int peoplePerRow, int buisnessRows) {
         for (int i = 1; i <= rows ; i++) {
             for (int j = 0; j < peoplePerRow; j++) {
@@ -26,24 +27,24 @@ public class Plane {
     }
 
 
-    ArrayList<Seat> availableSeats(Date date){
+    ArrayList<Seat> availableSeats(Flight flight){
         ArrayList<Seat> seats = new ArrayList<>();
         for (Seat seat: this.seats){
-            if (seat.isFree(date)){
+            if (seat.isFree(flight)){
                 seats.add(seat);
             }
         }
         return seats;
     }
 
-    void reserveSeats (ArrayList<Seat> seatsSelectedByUser ,Date date , Passenger passenger){
-        ArrayList<Seat> availableSeatsOnDate = availableSeats(date);
+    void reserveSeats (ArrayList<Seat> seatsSelectedByUser ,Flight flight , Passenger passenger){
+        ArrayList<Seat> availableSeatsOnDate = availableSeats(flight);
         if (!validateSeats(seatsSelectedByUser,availableSeatsOnDate)) {
             throw new RuntimeException("Selected a bad seat you bastard");
         }
         for (Seat seat: seatsSelectedByUser){
             int index = this.seats.indexOf(seat);
-            this.seats.get(index).reseveSeat(date, passenger);
+            this.seats.get(index).reseveSeat(flight, passenger);
             System.out.println(seat + "asd");
         }
     }
@@ -66,10 +67,10 @@ public class Plane {
             System.out.println(seat.position);
         }
     }
-    void print(Date date){
+    void print(Flight flight){
         for (Seat seat: seats){
             System.out.println(seat.position);
-            System.out.println(seat.isFree(date));
+            System.out.println(seat.isFree(flight));
         }
     }
 }

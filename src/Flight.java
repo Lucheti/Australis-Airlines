@@ -7,12 +7,14 @@ public class Flight {
     private Airport from;
     private Airport to;
     private Date date;
+    private Pilot pilot;
 
-    public Flight(Plane plane, Airport from, Airport to, Date day) {
+    public Flight(Plane plane, Airport from, Airport to, Date day, Pilot pilot) {
         this.plane = plane;
         this.from = from;
         this.to = to;
         this.date = day;
+        this.pilot = pilot;
     }
 
     @Override
