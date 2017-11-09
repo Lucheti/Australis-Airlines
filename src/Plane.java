@@ -7,14 +7,13 @@ import java.util.List;
  */
 public class Plane {
 
-    ArrayList<Seat> seats = new ArrayList<>();
-    String planeCode;
-    int turistClassPrice;
-    int buisnessClassPrice;
+    private ArrayList<Seat> seats = new ArrayList<>();
+    private String planeCode;
+    private int turistClassPrice;
+    private int buisnessClassPrice;
 
 
-
-    public Plane(int rows, int peoplePerRow, int buisnessRows) {
+    Plane(int rows, int peoplePerRow, int buisnessRows) {
         for (int i = 1; i <= rows ; i++) {
             for (int j = 0; j < peoplePerRow; j++) {
                 if (i <= buisnessRows) {

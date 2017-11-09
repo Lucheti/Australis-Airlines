@@ -4,8 +4,9 @@ import java.util.Calendar;
 public class Date {
     int day;
     int month;
-    int hour;
-    int minute;
+    //ESTO ES PARA QUE EN CASO DE QUE NO NOS PASEN UN HORARIO HAY UN HORARIO PREDETERMINADO 00:00
+    int hour = 0;
+    int minute = 0;
 
     public Date() {
         this.day = Calendar.DAY_OF_WEEK;
@@ -30,7 +31,7 @@ public class Date {
 //    }
 
     public String toString (){
-        return day + "/" + month ;
+        return day + "/" + month + " " + (hour<10? "0"+hour:hour) + ":" + (minute<10? "0"+minute:minute);
     }
 
     @Override
@@ -45,13 +46,13 @@ public class Date {
         return hour == date.hour;
     }
 
-    public boolean isBefore(Date date){
-        if (this == date) return true;
-        if (date == null || getClass() != date.getClass()) return false;
+    public boolean isBefore(Date dateToCompare) {
+        if (dateToCompare == null || getClass() != dateToCompare.getClass()) return false;
 
-        if (month >= date.month) return false;
-//        if (day >= date.day) return true;
-//        return hour >= date.hour;
-        return  day <= date.day;
+
+        if ((month == dateToCompare.month)&&(day == dateToCompare.day)) return hour < dateToCompare.hour;
+        if (month == dateToCompare.month) return day <= dateToCompare.day;
+        return month < dateToCompare.month;
     }
 }
+
