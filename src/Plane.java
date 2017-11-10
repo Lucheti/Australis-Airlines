@@ -44,7 +44,6 @@ public class Plane {
         for (Seat seat: seatsSelectedByUser){
             int index = this.seats.indexOf(seat);
             this.seats.get(index).reseveSeat(flight, passenger);
-            System.out.println(seat + "asd");
         }
     }
 

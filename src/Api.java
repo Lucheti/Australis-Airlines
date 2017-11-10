@@ -5,12 +5,15 @@ public class Api {
 
     ArrayList<Flight> flights = new ArrayList<>();              //Lista con todos los vuelos de Australis
     ArrayList<Plane> planes = new ArrayList<>();                //Lista con todos los aviones de Australis
+    ArrayList<Pilot> pilots = new ArrayList<>();                //Lista con todos los pilotos de Australis
+
     HashMap<String,Airport> airports = new HashMap();           //mapa con todos los destinos y sus aeropuertos correspondientes
     HashMap<String,Passenger> passengers = new HashMap<>();     //mapa para guardar a los clientes, se pueden registrar y loguear
+    HashMap<String,Employee> employees = new HashMap<>();
+
     CodeGenerator codeGenerator = new CodeGenerator();
     PriceCatalog priceCatalog = new PriceCatalog();
 
-    ArrayList<Pilot> pilots = new ArrayList<>();
     Airport getAirport (String country){
         if (airports.containsKey(country)){
             return airports.get(country);
@@ -47,9 +50,16 @@ public class Api {
     void registerNewPassenger(String dni , String name){
         passengers.put(dni, new Passenger(dni,name));
     }
-    Passenger login(String passengerDni){
+    Passenger loginPassenger(String passengerDni){
         if (validateLogin(passengerDni)){
             return passengers.get(passengerDni);
+        }
+        throw new RuntimeException();
+    }
+
+    Employee loginEmployee(String passengerDni){
+        if (validateLogin(passengerDni)){
+            return employees.get(passengerDni);
         }
         throw new RuntimeException();
     }

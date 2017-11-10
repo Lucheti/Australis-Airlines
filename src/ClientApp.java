@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class ClientApp {
     public static void main(String[] args) {
 
+        System.out.println("\t\t\tWelcome to Australis~Airlines ClientApp\n\t\t\t\tNice Travelling\n\n");
+
         Api api = new Api();
         boolean programIsRuning = true;
         boolean logged = false;
@@ -43,22 +45,22 @@ public class ClientApp {
         api.addFlight(api.getPlane(1),api.getAirport("B"),api.getAirport("D"),date2);
 
         while (programIsRuning) {
-            while (!logged) {
-                int option = Scanner.getInt("1: Login.\n2: Register\n\n");
-                switch (option) {
-                    case 1:
-                            passenger = api.login(Scanner.getString("Enter your passenger ID number: "));
+                while (!logged) {
+                    int option = Scanner.getInt("1: Login.\n2: Register\n\n");
+                    switch (option) {
+                        case 1:
+                            passenger = api.loginPassenger(Scanner.getString("Enter your passenger ID number: "));
                             System.out.println("\nLogged in as: " + passenger.getName());
                             logged = true;
                             break;
 
-                    case 2: api.registerNewPassenger(Scanner.getString("Dni\n"),Scanner.getString("name\n"));
+                        case 2: api.registerNewPassenger(Scanner.getString("Dni\n"),Scanner.getString("name\n"));
                             System.out.println("Register succesfull\n");
                             break;
+                    }
                 }
-            }
             while (logged) {
-                int option = Scanner.getInt("\nOptions: \n 1:Search Fligth.\n6:Logout.\n7:Quit.");
+                int option = Scanner.getInt("\nOptions: \n 1: Search Fligth.\n2: Fligth History\n6: Logout.\n7: Quit.");
                 switch (option) {
                     case 1:
                         //SE LE PIDE AL USUARIO AEROPUERTO DE SALIDA , LLEGADA , DIA , CANTIDAD DE ESCALAS Y CANTIDAD DE PASAJEROS

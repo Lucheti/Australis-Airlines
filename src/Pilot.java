@@ -1,16 +1,16 @@
 
 import java.util.HashMap;
 
-class Pilot extends Employee {
+class Pilot extends Employee{
+
     private String area = "Pilot";
-    private HashMap<Date, Boolean> availability= new HashMap<>();
+    private HashMap<Date, Boolean> availability = new HashMap<>();
     private Airport location;
+
 
     Pilot(Airport inicialPilotAirport) {
         this.location = inicialPilotAirport;
     }
-
-
 
     boolean isAvailable(Date date) {
         boolean available = false;
@@ -20,8 +20,9 @@ class Pilot extends Employee {
         return available;
     }
 
-    public Airport getLocation() {
+    Airport getLocation() {
         return location;
     }
+
 }
 

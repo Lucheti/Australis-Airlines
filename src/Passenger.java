@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-class Passenger {
+class Passenger extends Persona{
 
     private String dni;
     private String name;
