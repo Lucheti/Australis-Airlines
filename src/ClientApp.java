@@ -23,6 +23,18 @@ public class ClientApp {
         api.addAirport("C","CCC");
         api.addAirport("D","DDD");
 
+        api.addPilot(api.getAirport("A"));
+        api.addPilot(api.getAirport("A"));
+        api.addPilot(api.getAirport("A"));
+        api.addPilot(api.getAirport("A"));
+        api.addPilot(api.getAirport("B"));
+        api.addPilot(api.getAirport("B"));
+        api.addPilot(api.getAirport("B"));
+        api.addPilot(api.getAirport("C"));
+        api.addPilot(api.getAirport("C"));
+        api.addPilot(api.getAirport("D"));
+        api.addPilot(api.getAirport("D"));
+
         api.addFlight(api.getPlane(0),api.getAirport("A"),api.getAirport("D"),date1);
         api.addFlight(api.getPlane(0),api.getAirport("A"),api.getAirport("B"),date1);
         api.addFlight(api.getPlane(0),api.getAirport("A"),api.getAirport("C"),date1);
