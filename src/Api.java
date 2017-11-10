@@ -7,6 +7,8 @@ public class Api {
     ArrayList<Plane> planes = new ArrayList<>();                //Lista con todos los aviones de Australis
     HashMap<String,Airport> airports = new HashMap();           //mapa con todos los destinos y sus aeropuertos correspondientes
     HashMap<String,Passenger> passengers = new HashMap<>();     //mapa para guardar a los clientes, se pueden registrar y loguear
+    CodeGenerator codeGenerator = new CodeGenerator();
+    PriceCatalog priceCatalog = new PriceCatalog();
 
     ArrayList<Pilot> pilots = new ArrayList<>();
     Airport getAirport (String country){
@@ -18,15 +20,14 @@ public class Api {
     Plane getPlane ( int index ){return planes.get(index); }
 
 
-    void addPilot(Pilot pilot){
-        pilots.add(pilot);
+    void addPilot(Airport inicialPilotAirport){
+        pilots.add(new Pilot(inicialPilotAirport));
     }
 
     void addFlight (Plane plane, Airport from, Airport to, Date date){
 
-
         for (Pilot pilot: pilots) {
-            if ((pilot.getAvailability(date) == true) && (from.equals(pilot.location)))  {
+            if ((pilot.isAvailable(date) == true) && (from.equals(pilot.getLocation())))  {
                 flights.add(new Flight(plane, from, to, date, pilot));
                 break;
             }
@@ -40,7 +41,7 @@ public class Api {
     }
 
     void addPlane(int rows,int peoplePerRow,int buisnessRows){
-        planes.add(new Plane(rows,peoplePerRow,buisnessRows));
+        planes.add(new Plane(rows,peoplePerRow,buisnessRows,codeGenerator.getUniquePlaneCode(),priceCatalog));
     }
 
     void registerNewPassenger(String dni , String name){

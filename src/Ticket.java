@@ -19,7 +19,7 @@ public class Ticket {
     public String toString (){
         StringBuilder seatList = new StringBuilder();
         for (Seat seat: seats){
-            seatList.append(seat.position).append(" ");
+            seatList.append(seat.getPosition()).append(" ");
         }
         return "Flight from " + flight.getFrom() + " to " + flight.getTo() + " the " + flight.getDate() + " " + seatList + " " + passenger.getName() + price;
     }
