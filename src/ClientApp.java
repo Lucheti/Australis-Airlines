@@ -32,11 +32,11 @@ public class ClientApp {
 
         while (programIsRuning) {
             while (!logged) {
-                int option = Scanner.getInt("1: login \n2: register\n");
+                int option = Scanner.getInt("1: Login.\n2: Register\n\n");
                 switch (option) {
                     case 1:
-                            passenger= api.login(Scanner.getString("enter your passenger number\n"));
-                            System.out.println("logged in as " + passenger.getName());
+                            passenger = api.login(Scanner.getString("Enter your passenger ID number: "));
+                            System.out.println("\nLogged in as: " + passenger.getName());
                             logged = true;
                             break;
 
@@ -46,15 +46,16 @@ public class ClientApp {
                 }
             }
             while (logged) {
-                int option = Scanner.getInt("opciones: \n 1: buscar un vuelo\n 2: ver historial de vuelo\n 6: logout\n 7: quit ");
+                int option = Scanner.getInt("\nOptions: \n 1:Search Fligth.\n6:Logout.\n7:Quit.");
                 switch (option) {
                     case 1:
-                            //SE LE PIDE AL USUARIO AEROPUERTO DE SALIDA , LLEGADA , DIA , CANTIDAD DE ESCALAS Y CANTIDAD DE PASAJEROS
-                            Airport from = api.getAirport(Scanner.getString("Aeropuerto de salida:\n" + api.airportList()).toUpperCase());
-                            Airport to = api.getAirport(Scanner.getString("\nAeropuerto de llegada: \n" + api.airportList()).toUpperCase());
-                            int numberOfstops = Scanner.getInt("Numero de escalas: \n0 (Vuelo directo) \n1 \n2 \n3 (Me es indiferente) ");
-                            Date date = new Date(Scanner.getInt("dia"), Scanner.getInt("mes"));
-                            int numberOfPassengers = Scanner.getInt("Cuantas personas viajan?\n");
+                        //SE LE PIDE AL USUARIO AEROPUERTO DE SALIDA , LLEGADA , DIA , CANTIDAD DE ESCALAS Y CANTIDAD DE PASAJEROS
+                        Airport from = api.getAirport(Scanner.getString("\nDepart Airport:\t" + api.airportList()).toUpperCase());
+                        Airport to = api.getAirport(Scanner.getString("\nArrive Airport: \n" + api.airportList()).toUpperCase());
+                        int numberOfstops = Scanner.getInt("How many Stops?\n0: Direct Fligth.\n1: One stop Fligth. \n2: Two Stops Fligth.\n");
+                        Date date = new Date(Scanner.getInt("Day: "), Scanner.getInt("\tMonth: "));
+                        int numberOfPassengers = Scanner.getInt("How many passengers?: ");
+                        System.out.println("\n\n");
 
                             //BUSQUEDA DE TODAS LAS POSIBLES COMBINACIONES DE VUELOS CON RESPECTO A LOS PARAMETROS INDICADOS
                             ArrayList<ArrayList<Flight>> flightListList = api.searchFlight(from, to, date, numberOfstops);
@@ -66,7 +67,7 @@ public class ClientApp {
                             }
 
                             //EL USUARIO ELIGE UN VUELO
-                            ArrayList<Flight> wantedFlight = flightListList.get(Scanner.getInt("Que vuelo desea?\n") - 1); // el -1 es por el +1 de arriba
+                            ArrayList<Flight> wantedFlight = flightListList.get(Scanner.getInt("Select Fligth: ") - 1); // el -1 es por el +1 de arriba
 
                             //POR CADA VUELO EN EL ARREGLO SELECCIONADO (PUEDE SER 1 , 2 O 3 DEPENDIENDO DE LAS ESCALAS) EL USUARIO SELECCIONA LOS ASIENTOS
                             for (Flight flight : wantedFlight) {
@@ -80,7 +81,7 @@ public class ClientApp {
                                 System.out.println(availableSeats);
                                 for (int i = 0; i < numberOfPassengers; i++) {
                                     //ACA EL USUARIO SELECCIONA EL ASIENTO QUE DESEA (UNO POR CADA PASAJERO)
-                                    String position = Scanner.getString("indique el " + (i + 1) + " asiento que desea\n").toLowerCase();
+                                    String position = Scanner.getString("Select seat: " + (i + 1)).toLowerCase();
                                     for (Seat seat : availableSeats) {
                                         if (seat.getPosition().equals(position)) {
                                             wantedSeats.add(seat);
